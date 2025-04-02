@@ -1,0 +1,112 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+    <div class="form-container">
+        <h2>Share Post</h2>
+        <form method="POST" class="password-reset-form">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-field">
+                    {{field.label_tag}}
+                    {{field}}
+                    {% if field.help_text %}
+                        <small class="help-text">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% for error in field.errors %}
+                        <div class="error-message">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="submit-btn">Send Email</button>
+        </form>
+    </div>
+
+    <style>
+        .form-container {
+            max-width: 400px;
+            margin: 40px auto;
+            padding: 25px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-container h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .password-reset-form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-field {
+            margin-bottom: 15px;
+        }
+        
+        .form-field label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .form-field input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+        
+        .form-field input:focus {
+            border-color: #4a90e2;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+        }
+        
+        .help-text {
+            color: #4e4d4d;
+            font-size: 0.85em;
+            display: block;
+            margin-top: 5px;
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.85em;
+            margin-top: 5px;
+        }
+        
+        .submit-btn {
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+        
+        .submit-btn:hover {
+            background-color: #357ab8;
+        }
+    .small-code-box {
+        display: inline-block;
+        padding: 4px 6px;
+        background: #f0f0f0;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        font-size: 12px;
+        line-height: 1.2;
+        max-width: 200px; /* یا هر اندازه دلخواه */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    </style>
+{% endblock %}

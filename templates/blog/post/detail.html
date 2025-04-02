@@ -1,0 +1,79 @@
+{% extends 'blog/base.html' %}
+{% load blog_tags %}
+{% block content %}
+
+    {% if messages %}
+        {% for message in messages %}
+        <script>
+            Swal.fire({
+                icon: '{{ message.tags }}',
+                title: '{{ message }}',
+                timer: 3000,
+                showConfirmButton: false
+            });
+        </script>
+        {% endfor %}
+    {% endif %}
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-body">
+            <!-- Post title -->
+            <h1 class="card-title">{{ post.title }}</h1>
+            <p> Tags:
+                {% for tag in post.tags.all %}
+                    <a href="{% url 'blog:post_list_by_tag' tag.slug %}">{{ tag.name }}</a>
+                    {% if not forloop.last %} / {% endif %}
+                {% endfor %}
+            </p>
+            <!-- Publish date -->
+            <p class="text-muted">
+                <span style="color: rgb(47, 153, 153);">{{ post.publish }}</span>
+            </p>
+            <!-- Post content -->
+            <p class="card-text">{{post.body|markdown}}</p>
+            <!-- Back link -->
+            <a href="{% url 'blog:post_list' %}" class="btn btn-primary">Back</a>
+        </div>
+        <p>
+            <a href="{% url 'blog:post_share' post.id %}">Share</a>
+        </p>
+        <div class="row">
+            <div class="mb-3 col-6">
+                <form method="POST">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div>
+                        {{ field.errors }}
+                        {{ field.label_tag }}<br>
+                        {{ field }}
+                    </div>
+                    {% endfor %}
+                    <input class="btn btn-primary" type="submit" value="Set Comment">
+                </form>
+                <hr>
+            {% with comments.count as total_comments %}
+                <h4>Number of comments: {{ total_comments }}</h4>
+            {% endwith %}
+            <hr>
+            </div>
+        </div>
+        <div class="col-6">
+            {% for cm in comments %}
+                {{ cm.name }} wrote: {{ cm.body }}
+                <hr>
+                <br>
+            {% endfor %}
+        </div>
+        <div class="row my-3">
+            <h3>Similar Posts</h3>
+            <div class="col">
+                {% for post in s_posts %}
+                    <a href="{{ post.get_absolute_url }}">{{ post.title }}</a> /
+                {% endfor %}
+                <hr />
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
