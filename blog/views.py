@@ -2,13 +2,13 @@ from django.shortcuts import render, get_object_or_404
 from .models import Post, Comment
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
-from .forms import EmailPostForm, CommentForm
+from .forms import EmailPostForm, CommentForm, SearchForm
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from taggit.models import Tag
 from django.db.models import Count
-
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank, TrigramSimilarity
 
 
 def post_list(request, tag_slug=None):
@@ -109,3 +109,19 @@ def comment_share(request, year, month, day, post):
     else:
         comment_form = CommentForm()
         return render(request, 'blog/post/detail.html', {"post":post, 'form':comment_form})
+
+# search view
+def post_search(request):
+    form = SearchForm()
+    query = None
+    results = []
+
+    if 'query' in request.GET:
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            
+            search_vector = SearchVector('title', weight='A') + SearchVector('body', weight='C')
+            search_query = SearchQuery(query)
+            results = Post.published.annotate(similar = TrigramSimilarity('title', query)).filter(similar__gt=0.2).order_by('-similar')
+    return render(request, 'blog/post/search.html', {'form':form, 'query':query, 'results':results})
