@@ -28,7 +28,7 @@ ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
-SITE_ID = 1
+SITE_ID_APPS = 1
 
 
 INSTALLED_APPS = [
@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     # site map
     'django.contrib.sites',
     'django.contrib.sitemaps',
+    # postgres
+    'django.contrib.postgres'
+
 ]
 
 MIDDLEWARE = [
@@ -76,16 +79,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'my_blog.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
 
 # Password validation
