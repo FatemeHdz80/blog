@@ -13,3 +13,7 @@ db.sqlite3
 
 .DS_Store
 
+.local_settings
+local_settings.py
+all_data.json
+blog_backup.sql
