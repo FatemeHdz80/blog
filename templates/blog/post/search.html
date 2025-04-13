@@ -1,0 +1,27 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <h1>Search Form</h1>
+    <form action="" method="get">
+        {{ form.as_p }}
+        <input type="submit" value="🔍 Search">
+    </form>
+
+    {% if query %}
+        <hr>
+        <h2>Results for: <em>{{ query }}</em></h2>
+        {% with results.count as total_results %}
+            <p><strong>{{ total_results }}</strong> result{{ total_results|pluralize }} found.</p>
+        {% endwith %}
+        <ul>
+            {% for result in results %}
+                <li>
+                    <h4><a href="{{ result.get_absolute_url }}">{{ result.title }}</a></h4>
+                    <p>{{ result.body|truncatewords:20 }}</p>
+                </li>
+            {% empty %}
+                <li>No results found. Try again with different keywords 🧐</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
