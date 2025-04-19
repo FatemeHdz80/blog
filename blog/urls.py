@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 from .feeds import LatestPostFeed
+from django.contrib.auth import views as auth_views
 
 
 
@@ -13,5 +14,10 @@ urlpatterns = [
     path("<int:year>/<int:month>/<int:day>/<slug:post>/", views.post_detail, name="post_detail"),
     path("<int:post_id>/share/", views.post_share, name="post_share"),
     path('feed/', LatestPostFeed(), name="post_feed"),
-    path('search/', views.post_search, name="post_search")
+    path('search/', views.post_search, name="post_search"),
+    path('login/', views.login_user, name="login_user"),
+    path('logout/', views.logout_user, name="logout_user"),
+    path('about/', views.about, name="about"),
+    path('contact/', views.contact_view, name='contact'),
+    path('signup/', views.signup_user, name='signup_user'),
 ]
