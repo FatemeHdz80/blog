@@ -1,27 +1,48 @@
 {% extends 'blog/base.html' %}
+{% load blog_tags %}
 
 {% block content %}
-    <h1>Search Form</h1>
-    <form action="" method="get">
-        {{ form.as_p }}
-        <input type="submit" value="🔍 Search">
-    </form>
 
     {% if query %}
         <hr>
-        <h2>Results for: <em>{{ query }}</em></h2>
+        <h2 class="text-center mb-4">results for: <em>{{ query }}</em></h2>
         {% with results.count as total_results %}
-            <p><strong>{{ total_results }}</strong> result{{ total_results|pluralize }} found.</p>
+            <p class="text-center"><strong>total posts: {{ total_results }}</strong></p>
         {% endwith %}
-        <ul>
+        <div class="row justify-content-center g-3">
             {% for result in results %}
-                <li>
-                    <h4><a href="{{ result.get_absolute_url }}">{{ result.title }}</a></h4>
-                    <p>{{ result.body|truncatewords:20 }}</p>
-                </li>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="card h-100 shadow-sm border-0" style="border-radius: 16px; overflow: hidden;">
+                    {% if result.image %}
+                    <img src="{{ result.image.url }}"
+                         class="card-img-top"
+                         style="height: 160px; object-fit: cover;"
+                         alt="{{ result.title }}">
+                    {% endif %}
+                    <div class="card-body d-flex flex-column gap-2" style="padding: 12px;">
+                        <h6 class="card-title mb-1" style="font-size: 15px;">{{ result.title|truncatewords:7 }}</h6>
+                        <p class="card-text mb-3" style="font-size: 13px;">{{ result.body|truncatewords:15 }}</p>
+                        <a href="{{ result.get_absolute_url }}" class="mt-auto btn btn-sm btn-outline-primary w-100">Read More</a>
+                    </div>
+                </div>
+            </div>
             {% empty %}
-                <li>No results found. Try again with different keywords 🧐</li>
+            <p class="text-center">Oops! Nothing was found. Please try again.</p>
+            <hr>
+            <div class="bg-light p-3 rounded shadow-sm my-4" style="max-width: 400px;">
+                <div class="card-header bg-primary text-white">
+                  <i class="bi bi-clock-history me-1"></i> Latest Posts
+                </div>
+                <ul class="list-group list-group-flush">
+                  {% show_latest_posts 3 %}
+                </ul>
+            </div>
             {% endfor %}
-        </ul>
+        </div>
+        <hr>
+
+
+    
     {% endif %}
+
 {% endblock %}

@@ -22,7 +22,8 @@
 
     <style>
         .form-container {
-            max-width: 400px;
+            max-width: 450px;
+            height: 70vb;
             margin: 40px auto;
             padding: 25px;
             background: #ffffff;
@@ -95,18 +96,16 @@
         .submit-btn:hover {
             background-color: #357ab8;
         }
-    .small-code-box {
-        display: inline-block;
-        padding: 4px 6px;
-        background: #f0f0f0;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        font-size: 12px;
-        line-height: 1.2;
-        max-width: 200px; /* یا هر اندازه دلخواه */
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
+
+        textarea {
+            width: 100%;
+            height: 200px;
+            resize: vertical;
+            border-radius: 8px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            }
+
     </style>
 {% endblock %}

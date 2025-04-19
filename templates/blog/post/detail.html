@@ -1,5 +1,7 @@
 {% extends 'blog/base.html' %}
 {% load blog_tags %}
+
+
 {% block content %}
 
     {% if messages %}
@@ -36,44 +38,81 @@
             <a href="{% url 'blog:post_list' %}" class="btn btn-primary">Back</a>
         </div>
         <p>
-            <a href="{% url 'blog:post_share' post.id %}">Share</a>
-        </p>
-        <div class="row">
-            <div class="mb-3 col-6">
+            <a href="{% url 'blog:post_share' post.id %}" class="btn btn-outline-success rounded-pill px-4 py-2 d-inline-flex align-items-center gap-2 shadow-sm">
+              <i class="bi bi-share-fill"></i>
+              Share this post
+            </a>
+          </p>
+          <hr>
+        <div class="row g-4">
+            <!-- Comment Form -->
+            <div class="col-md-6">
+              <div class="card shadow-sm border-0 rounded-4 p-4">
+                <h4 class="mb-3">Leave a Comment 💬</h4>
+              {% if user.is_authenticated %}
                 <form method="POST">
-                    {% csrf_token %}
-                    {% for field in form %}
-                    <div>
-                        {{ field.errors }}
-                        {{ field.label_tag }}<br>
-                        {{ field }}
+                  {% csrf_token %}
+                  {% for field in form %}
+                    <div class="mb-3">
+                      {{ field.label_tag }}
+                      {{ field }}
+                      <div class="text-danger small">{{ field.errors }}</div>
                     </div>
-                    {% endfor %}
-                    <input class="btn btn-primary" type="submit" value="Set Comment">
+                  {% endfor %}
+                  <button type="submit" class="btn btn-outline-primary w-100">
+                    ✍️ Submit Comment
+                  </button>
                 </form>
-                <hr>
-            {% with comments.count as total_comments %}
-                <h4>Number of comments: {{ total_comments }}</h4>
-            {% endwith %}
-            <hr>
+              {% else %}
+                <p class="alert alert-warning">
+                  You must <a href="{% url 'blog:login_user' %}?next={{ request.path }}">log in</a> to have a comment.
+                </p>
+              {% endif %}
+              </div>
+          
+              {% with comments.count as total_comments %}
+                <div class="mt-4 text-muted">
+                  <h5 class="fw-light">🗨️ Total Comments: <strong>{{ total_comments }}</strong></h5>
+                </div>
+              {% endwith %}
             </div>
-        </div>
-        <div class="col-6">
-            {% for cm in comments %}
-                {{ cm.name }} wrote: {{ cm.body }}
-                <hr>
-                <br>
-            {% endfor %}
-        </div>
-        <div class="row my-3">
-            <h3>Similar Posts</h3>
-            <div class="col">
-                {% for post in s_posts %}
-                    <a href="{{ post.get_absolute_url }}">{{ post.title }}</a> /
+          
+            <!-- Comment List -->
+            <div class="col-md-6">
+              <div class="card shadow-sm border-0 rounded-4 p-4">
+                <h4 class="mb-3">📝 Comments</h4>
+                {% for cm in comments %}
+                  <div class="mb-3 border-bottom pb-2">
+                    <strong>{{ cm.name }}</strong> said:
+                    <p class="mb-0 text-muted">{{ cm.body }}</p>
+                  </div>
+                {% empty %}
+                  <p class="text-muted">No comments yet. Be the first one! 😊</p>
                 {% endfor %}
-                <hr />
+              </div>
             </div>
-        </div>
+          </div>
+          
+          <!-- Similar Posts Section -->
+          <div class="row my-5">
+            <div class="col">
+              <div class="card shadow-sm border-0 rounded-4 p-4">
+                <h4 class="mb-3">🔗 Similar Posts You May Like</h4>
+                <ul class="list-unstyled">
+                  {% for post in s_posts %}
+                    <li class="mb-2">
+                      <a href="{{ post.get_absolute_url }}" class="link-primary text-decoration-none">
+                        {{ post.title }}
+                      </a>
+                    </li>
+                  {% empty %}
+                    <li class="text-muted">No similar posts found.</li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+          
     </div>
 </div>
 {% endblock %}

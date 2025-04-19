@@ -1,0 +1,26 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+<div class="form-container">
+    <form method="POST" action="{% url 'blog:signup_user' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-secondary">Submit</button>
+    </form>
+    <p>have an account? <a href="{% url 'blog:login_user' %}" class="btn btn-outline-info">login here</a></p>
+
+</div>
+
+<style>
+    .form-container {
+        max-width: 450px;
+        height: 50vh;
+        margin: 40px auto;
+        padding: 25px;
+        background: rgb(95, 216, 176);;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+</style>
+
+{% endblock %}
