@@ -1,0 +1,11 @@
+{
+  "port": 80,
+  "platform": "django",
+  "app": "my_blog2",
+  "build": {
+    "location": "iran"
+  },
+  "django": {
+    "pythonVersion": "3.12"
+  }
+}

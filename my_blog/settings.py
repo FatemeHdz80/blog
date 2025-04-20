@@ -130,3 +130,8 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DEBUG = False
+ALLOWED_HOSTS = ['.liara.run']
+CSRF_TRUSTED_ORIGINS = ['https://*.liara.run']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
