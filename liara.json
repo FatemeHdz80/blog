@@ -1,7 +1,7 @@
 {
   "port": 80,
   "platform": "django",
-  "app": "my_blog2",
+  "app": "my_blog",
   "build": {
     "location": "iran"
   },
