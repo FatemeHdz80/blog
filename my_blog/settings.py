@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-from my_blog.local_settings import *
+from .local_settings import *
 import os
 # from .email_info import *
 
