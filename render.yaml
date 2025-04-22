@@ -2,7 +2,9 @@ services:
   - type: web
     name: my-blog
     env: python
-    buildCommand: "./build.sh"
+    buildCommand: |
+      pip install -r requirements.txt
+      python manage.py collectstatic --noinput
     startCommand: "gunicorn my_blog.wsgi"
     envVars:
       - key: DEBUG
