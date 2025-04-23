@@ -26,8 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 
-ALLOWED_HOSTS = config("ALLOWED_HOSTS", default="my-blog.onrender.com", cast=lambda v: v.split(","))
-
+ALLOWED_HOSTS = ['https://blog-2-kwcg.onrender.com']
 
 
 
@@ -58,6 +57,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -145,7 +145,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 SECRET_KEY = 'django-insecure-ch3+lmv5ekpr$!&ytai%_!%yoz4pn_fiz9j&j$j4eh4-i^rsxe'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = True
 
 # Email settings 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -163,10 +163,22 @@ DEFAULT_FROM_EMAIL = 'noreply@example.com'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgres://user:password@localhost/dbname',
+        # Replace this value with your local database's connection string.
+        default='postgresql://postgres:postgres@localhost:5432/mysite',
         conn_max_age=600
     )
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'blog_db',
+#         'USER': 'blog_user',
+#         'PASSWORD': 'blogapp23',
+#         'HOST': 'localhost',
 
+#         'PORT': '5432',
+#     }
+# }
