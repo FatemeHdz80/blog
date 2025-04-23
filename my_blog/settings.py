@@ -151,6 +151,7 @@ SECRET_KEY = 'django-insecure-ch3+lmv5ekpr$!&ytai%_!%yoz4pn_fiz9j&j$j4eh4-i^rsxe
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'  # استفاده از متغیر محیطی برای کنترل حالت دیباگ
+CREATE_SUPERUSER = False
 
 # Email settings 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
