@@ -26,8 +26,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 
-ALLOWED_HOSTS = ['blog-3-gipw.onrender.com']
-
+ALLOWED_HOSTS = [
+    'blog-3-gipw.onrender.com',  # دامنه Render شما
+    'localhost',  # برای توسعه محلی
+    '127.0.0.1',  # برای توسعه محلی
+]
 
 
 
@@ -135,8 +138,11 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-DEBUG = False
-CSRF_TRUSTED_ORIGINS = ['https://*.liara.run']
+CSRF_TRUSTED_ORIGINS = [
+    'https://blog-3-gipw.onrender.com',
+    'https://*.onrender.com'
+]
+
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
@@ -144,7 +150,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 SECRET_KEY = 'django-insecure-ch3+lmv5ekpr$!&ytai%_!%yoz4pn_fiz9j&j$j4eh4-i^rsxe'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'  # استفاده از متغیر محیطی برای کنترل حالت دیباگ
 
 # Email settings 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
