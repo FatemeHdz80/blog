@@ -26,8 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 
-ALLOWED_HOSTS = ['https://blog-3-kwcg.onrender.com']
-
+ALLOWED_HOSTS = ['blog-3-gipw.onrender.com']
 
 
 
