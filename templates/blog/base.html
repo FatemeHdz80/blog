@@ -48,29 +48,7 @@
         {% endif %}
 
 
-        <div class="d-flex justify-content-center mt-4">
-            <form method="get" action="{% url 'blog:post_search' %}" 
-                  class="d-flex align-items-center"
-                  onsubmit="return validateSearchForm()" 
-                  style="max-width: 400px; width: 100%; background: #f8f9fa; border-radius: 10px; padding: 5px 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
-            
-              <input id="searchInput" name="query" class="form-control border-0" type="search" 
-                     placeholder="search..." value="{{ request.GET.query }}"
-                     style="font-size: 14px; background: transparent;">
-              <button class="btn btn-outline-primary ms-2" type="submit">🔍</button>
-            </form>
-          </div>
-          
-          <script>
-            function validateSearchForm() {
-              const input = document.getElementById('searchInput').value.trim();
-              if (input === '') {
-                return false;  
-              }
-              return true;
-            }
-          </script>
-      
+
       
           
     <main style="min-height: 80vh;"> 

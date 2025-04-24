@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post, Comment
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView
-from .forms import EmailPostForm, CommentForm, SearchForm, ContactForm
+from .forms import EmailPostForm, CommentForm, ContactForm
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.contrib import messages
@@ -14,12 +14,11 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .forms import SignupForm
-from django.contrib.auth.decorators import login_required
 
 
 
 def post_list(request, tag_slug=None):
-    posts = Post.published.all()
+    posts = Post.published.all().order_by('-publish')  
     tag = None
     if tag_slug:
         tag = get_object_or_404(Tag, slug=tag_slug)
@@ -127,21 +126,6 @@ def comment_share(request, year, month, day, post):
         "post": post,
         'form': comment_form
     })
-# search view
-def post_search(request):
-    form = SearchForm()
-    query = None
-    results = []
-
-    if 'query' in request.GET:
-        form = SearchForm(request.GET)
-        if form.is_valid():
-            query = form.cleaned_data['query']
-            
-            search_vector = SearchVector('title', weight='A') + SearchVector('body', weight='C')
-            search_query = SearchQuery(query)
-            results = Post.published.annotate(similar = TrigramSimilarity('title', query)).filter(similar__gt=0.1).order_by('-similar')
-    return render(request, 'blog/post/search.html', {'form':form, 'query':query, 'results':results})
 
 def login_user(request):
     if request.method == "POST":

@@ -14,10 +14,6 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ('name', 'email', 'body')
 
-
-class SearchForm(forms.Form):
-    query = forms.CharField()
-
 class ContactForm(forms.Form):
     name = forms.CharField(max_length=100, label='Your name')
     email = forms.EmailField(label='Your Email')

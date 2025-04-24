@@ -150,7 +150,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 SECRET_KEY = 'django-insecure-ch3+lmv5ekpr$!&ytai%_!%yoz4pn_fiz9j&j$j4eh4-i^rsxe'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'  # استفاده از متغیر محیطی برای کنترل حالت دیباگ
+DEBUG = True  
 CREATE_SUPERUSER = False
 
 # Email settings 
@@ -170,21 +170,21 @@ DEFAULT_FROM_EMAIL = 'noreply@example.com'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 
-DATABASES = {
-    'default': dj_database_url.config(
-        # Replace this value with your local database's connection string.
-        default='postgresql://postgres:postgres@localhost:5432/mysite',
-        conn_max_age=600
-    )
-}
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'blog_db',
-#         'USER': 'blog_user',
-#         'PASSWORD': 'blogapp23',
-#         'HOST': 'localhost',
-
-#         'PORT': '5432',
-#     }
+#     'default': dj_database_url.config(
+#         # Replace this value with your local database's connection string.
+#         default='postgresql://postgres:postgres@localhost:5432/mysite',
+#         conn_max_age=600
+#     )
 # }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'blog_db',
+        'USER': 'blog_user',
+        'PASSWORD': 'blogapp23',
+        'HOST': 'localhost',
+
+        'PORT': '5432',
+    }
+}

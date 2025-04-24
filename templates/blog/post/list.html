@@ -42,9 +42,9 @@
     {% for post in posts %}
       <div class="col">
         <div class="card h-100 shadow-sm" style="background-color: #fefefe; border-radius: 12px; transition: transform 0.2s ease-in-out;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
-          {% if post.picture_url %}
+          {% if post.image %}
               <div class="d-flex justify-content-center">
-                <img src="{{ post.picture_url }}" alt="Post image" style="max-width:100%; height:auto;" 
+                <img src="{{ post.picture_url }}" alt="Post image" style="max-width:100%; height:auto;"> 
                      class="card-img-top"
                      style="width: 100%; max-width: 430px; height: 300px; object-fit: cover; border-radius: 10px;" 
                      alt="{{ post.title }}">
@@ -103,14 +103,5 @@
       {% show_latest_posts 3 %}
     </ul>
   </div>
-
-  
-  <footer class="text-center mt-5">
-    <small>
-      <a href="{% url 'blog:post_feed' %}" class="text-muted text-decoration-none">
-        📡 RSS Feed – stay updated!
-      </a>
-    </small>
-  </footer>
   
 {% endblock %}
