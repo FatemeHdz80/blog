@@ -13,8 +13,8 @@
             {% for result in results %}
             <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                     <div class="card h-100 shadow-sm border-0" style="border-radius: 16px; overflow: hidden;">
-                    {% if result.image %}
-                    <img src="{{ result.image.url }}"
+                    {% if result.picture_url %}
+                    <img src="{{ result.picture_url }}" alt="Post image" style="max-width:100%; height:auto;"
                          class="card-img-top"
                          style="height: 160px; object-fit: cover;"
                          alt="{{ result.title }}">
