@@ -128,7 +128,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS =[
     BASE_DIR / "static"
 ]
-
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
@@ -150,9 +150,8 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 SECRET_KEY = 'django-insecure-ch3+lmv5ekpr$!&ytai%_!%yoz4pn_fiz9j&j$j4eh4-i^rsxe'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = os.environ.get('DEBUG', 'False') == 'True'  # استفاده از متغیر محیطی برای کنترل حالت دیباگ
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'  # استفاده از متغیر محیطی برای کنترل حالت دیباگ
 CREATE_SUPERUSER = False
-DEBUG = True
 
 # Email settings 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -178,9 +177,6 @@ DATABASES = {
         conn_max_age=600
     )
 }
-
-
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
