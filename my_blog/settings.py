@@ -181,14 +181,14 @@ DATABASES = {
 
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'blog_db',
-        'USER': 'blog_user',
-        'PASSWORD': 'blogapp23',
-        'HOST': 'localhost',
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'blog_db',
+#         'USER': 'blog_user',
+#         'PASSWORD': 'blogapp23',
+#         'HOST': 'localhost',
 
-        'PORT': '5432',
-    }
-}
+#         'PORT': '5432',
+#     }
+# }
