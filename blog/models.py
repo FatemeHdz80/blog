@@ -27,7 +27,7 @@ class Post(models.Model):
     objects = models.Manager()
     published = PublisheManager()
     tags = TaggableManager()
-    image = models.ImageField(upload_to='images/', blank=True, null=True)
+    picture_url = models.URLField(max_length=1000)
 
     def get_absolute_url(self):
         return reverse("blog:post_detail", args=[self.publish.year, self.publish.month, self.publish.day, self.slug])
